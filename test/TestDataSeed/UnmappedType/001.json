@@ -1,0 +1,9 @@
+{
+  "order": 1,
+  "name": "step 1",
+  "itemType": "System.String",
+  "items": [
+    "one",
+    "two"
+  ]
+}

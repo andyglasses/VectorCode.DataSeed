@@ -1,0 +1,15 @@
+{
+  "order": -1,
+  "name": "step 1",
+  "itemType": "CodedVector.DataSeed.Test.TestDataSeed.StepOneModel, CodedVector.DataSeed.Test",
+  "items": [
+    {
+      "number": 1,
+      "text": "one"
+    },
+    {
+      "number": 2,
+      "text": "two"
+    }
+  ]
+}
