@@ -11,6 +11,7 @@ namespace CodedVector.DataSeed;
 public abstract class BaseDataSeedRunner
 {
   private readonly IDataSeedRepository _dataSeedRepository;
+  private readonly IFileHashGenerator _fileHashGenerator;
 
   /// <summary>
   /// Data seed folder
@@ -28,9 +29,11 @@ public abstract class BaseDataSeedRunner
   /// Create a new instance of the data seed runner
   /// </summary>
   /// <param name="dataSeedRepository">Repository instance to log data seed executions</param>
-  public BaseDataSeedRunner(IDataSeedRepository dataSeedRepository)
+  /// <param name="fileHashGenerator"></param>
+  public BaseDataSeedRunner(IDataSeedRepository dataSeedRepository, IFileHashGenerator fileHashGenerator)
   {
     _dataSeedRepository = dataSeedRepository;
+    _fileHashGenerator = fileHashGenerator;
   }
 
   /// <summary>
@@ -124,7 +127,7 @@ public abstract class BaseDataSeedRunner
     }
   }
 
-  private static void ProcessFile(List<(DataSeedStep Step, Type? Type, string ValidationHash)> steps, JsonSerializerOptions options, string file)
+  private void ProcessFile(List<(DataSeedStep Step, Type? Type, string ValidationHash)> steps, JsonSerializerOptions options, string file)
   {
     var f = File.ReadAllText(file);
     if (string.IsNullOrWhiteSpace(f)) 
@@ -146,13 +149,7 @@ public abstract class BaseDataSeedRunner
       throw new InvalidOperationException($"Failed to parse data seed step {file} (null result)"); 
     }
 
-    var hashbytes = SHA256.HashData(Encoding.UTF8.GetBytes(f));
-    StringBuilder sb = new StringBuilder();
-    foreach (byte b in hashbytes)
-    {
-      sb.Append(b.ToString("X2", CultureInfo.InvariantCulture));
-    }
-    var hash = sb.ToString();
+    var hash = _fileHashGenerator.GenerateHash(f);
     steps.Add(new(step, Type.GetType(step.ItemType), hash));
   }
 }

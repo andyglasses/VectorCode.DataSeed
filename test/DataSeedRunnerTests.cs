@@ -1,6 +1,7 @@
 ﻿using CodedVector.DataSeed;
 using CodedVector.DataSeed.Test.TestDataSeed;
 using FluentAssertions;
+using Moq;
 
 namespace CodedVector.DddCommon.Test;
 
@@ -12,7 +13,7 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var runner = new TestSeedRunner(repo, new SHA256HashGenerator());
     runner.SetFolder("TestDataSeed/Pass");
 
     // Act
@@ -41,9 +42,11 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var mockHashGenerator = new Mock<IFileHashGenerator>();
+    mockHashGenerator.Setup(x => x.GenerateHash(It.IsAny<string>())).Returns((string f) => f.Contains("\"order\": 1") ? "1" : "2");
+    var runner = new TestSeedRunner(repo, mockHashGenerator.Object);
     runner.SetFolder("TestDataSeed/Pass");
-    await repo.SaveDataSeedStep(new DataSeedStepDto(1, "step 1", DataSeedStepStatus.Complete, "112CCB7E0E7A9606FA2AD16C15F75222EEEEFE3E0EC0051905C7FF884395840C"));
+    await repo.SaveDataSeedStep(new DataSeedStepDto(1, "step 1", DataSeedStepStatus.Complete, "1"));
 
     // Act
     await runner.Run();
@@ -67,9 +70,11 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var mockHashGenerator = new Mock<IFileHashGenerator>();
+    mockHashGenerator.Setup(x => x.GenerateHash(It.IsAny<string>())).Returns((string f) => f.Contains("\"order\": 1") ? "1" : "2");
+    var runner = new TestSeedRunner(repo, mockHashGenerator.Object);
     runner.SetFolder("TestDataSeed/Pass");
-    await repo.SaveDataSeedStep(new DataSeedStepDto(2, "step 2", DataSeedStepStatus.Complete, "A3D8ED02ED737C89B9577AA555202D21361532172F49EAC94142F6811BA0984C"));
+    await repo.SaveDataSeedStep(new DataSeedStepDto(2, "step 2", DataSeedStepStatus.Complete, "2"));
 
     // Act
     var act = runner.Run;
@@ -83,7 +88,7 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var runner = new TestSeedRunner(repo, new SHA256HashGenerator());
     runner.SetFolder("TestDataSeed/Pass");
     await repo.SaveDataSeedStep(new DataSeedStepDto(1, "step 1", DataSeedStepStatus.Complete, "not-right-hash"));
 
@@ -99,7 +104,7 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var runner = new TestSeedRunner(repo, new SHA256HashGenerator());
     runner.SetFolder("TestDataSeed/BadJson");
 
     // Act
@@ -114,7 +119,7 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var runner = new TestSeedRunner(repo, new SHA256HashGenerator());
     runner.SetFolder("TestDataSeed/EmptyJson");
 
     // Act
@@ -129,7 +134,7 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var runner = new TestSeedRunner(repo, new SHA256HashGenerator());
     runner.SetFolder("TestDataSeed/EmptyFile");
 
     // Act
@@ -144,7 +149,7 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var runner = new TestSeedRunner(repo, new SHA256HashGenerator());
     runner.SetFolder("TestDataSeed/BadType");
 
     // Act
@@ -159,7 +164,7 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var runner = new TestSeedRunner(repo, new SHA256HashGenerator());
     runner.SetFolder("TestDataSeed/DuplicateOrder");
 
     // Act
@@ -174,7 +179,7 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var runner = new TestSeedRunner(repo, new SHA256HashGenerator());
     runner.SetFolder("TestDataSeed/NegativeOrder");
 
     // Act
@@ -189,7 +194,7 @@ public class DataSeedRunnerTests
   {
     // Arrange
     var repo = new TestDataSeedRepo();
-    var runner = new TestSeedRunner(repo);
+    var runner = new TestSeedRunner(repo, new SHA256HashGenerator());
     runner.SetFolder("TestDataSeed/UnmappedType");
 
     // Act

@@ -3,7 +3,7 @@
 public class TestSeedRunner : BaseDataSeedRunner
 {
 
-  public TestSeedRunner(IDataSeedRepository dataSeedRepository) : base(dataSeedRepository)
+  public TestSeedRunner(IDataSeedRepository dataSeedRepository, IFileHashGenerator fileHashGenerator) : base(dataSeedRepository, fileHashGenerator)
   {
   }
 
