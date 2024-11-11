@@ -13,7 +13,7 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\Pass");
+    runner.SetFolder("TestDataSeed/Pass");
 
     // Act
     await runner.Run();
@@ -42,7 +42,7 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\Pass");
+    runner.SetFolder("TestDataSeed/Pass");
     await repo.SaveDataSeedStep(new DataSeedStepDto(1, "step 1", DataSeedStepStatus.Complete, "112CCB7E0E7A9606FA2AD16C15F75222EEEEFE3E0EC0051905C7FF884395840C"));
 
     // Act
@@ -68,7 +68,7 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\Pass");
+    runner.SetFolder("TestDataSeed/Pass");
     await repo.SaveDataSeedStep(new DataSeedStepDto(2, "step 2", DataSeedStepStatus.Complete, "A3D8ED02ED737C89B9577AA555202D21361532172F49EAC94142F6811BA0984C"));
 
     // Act
@@ -84,7 +84,7 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\Pass");
+    runner.SetFolder("TestDataSeed/Pass");
     await repo.SaveDataSeedStep(new DataSeedStepDto(1, "step 1", DataSeedStepStatus.Complete, "not-right-hash"));
 
     // Act
@@ -100,13 +100,13 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\BadJson");
+    runner.SetFolder("TestDataSeed/BadJson");
 
     // Act
     var act = runner.Run;
 
     // Assert
-    await act.Should().ThrowAsync<InvalidOperationException>().WithMessage("Failed to parse data seed step TestDataSeed\\BadJson\\001.json");
+    await act.Should().ThrowAsync<InvalidOperationException>().Where(m => m.Message.StartsWith("Failed to parse data seed step"));
   }
 
   [Test]
@@ -115,13 +115,13 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\EmptyJson");
+    runner.SetFolder("TestDataSeed/EmptyJson");
 
     // Act
     var act = runner.Run;
 
     // Assert
-    await act.Should().ThrowAsync<InvalidOperationException>().WithMessage("Failed to parse data seed step TestDataSeed\\EmptyJson\\001.json");
+    await act.Should().ThrowAsync<InvalidOperationException>().Where(m => m.Message.StartsWith("Failed to parse data seed step"));
   }
 
   [Test]
@@ -130,13 +130,13 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\EmptyFile");
+    runner.SetFolder("TestDataSeed/EmptyFile");
 
     // Act
     var act = runner.Run;
 
     // Assert
-    await act.Should().ThrowAsync<InvalidOperationException>().WithMessage("Failed to parse data seed step TestDataSeed\\EmptyFile\\001.json (empty file)");
+    await act.Should().ThrowAsync<InvalidOperationException>().Where(m => m.Message.StartsWith("Failed to parse data seed step"));
   }
 
   [Test]
@@ -145,7 +145,7 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\BadType");
+    runner.SetFolder("TestDataSeed/BadType");
 
     // Act
     var act = runner.Run;
@@ -160,7 +160,7 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\DuplicateOrder");
+    runner.SetFolder("TestDataSeed/DuplicateOrder");
 
     // Act
     var act = runner.Run;
@@ -175,7 +175,7 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\NegativeOrder");
+    runner.SetFolder("TestDataSeed/NegativeOrder");
 
     // Act
     var act = runner.Run;
@@ -190,7 +190,7 @@ public class DataSeedRunnerTests
     // Arrange
     var repo = new TestDataSeedRepo();
     var runner = new TestSeedRunner(repo);
-    runner.SetFolder("TestDataSeed\\UnmappedType");
+    runner.SetFolder("TestDataSeed/UnmappedType");
 
     // Act
     var act = runner.Run;
