@@ -1,7 +1,7 @@
 {
   "order": 2,
   "name": "step 2",
-  "itemType": "CodedVector.DataSeed.Test.TestDataSeed.StepTwoModel, CodedVector.DataSeed.Test",
+  "itemType": "VectorCode.DataSeed.Test.TestDataSeed.StepTwoModel, VectorCode.DataSeed.Test",
   "items": [
     {
       "price": 1.11,

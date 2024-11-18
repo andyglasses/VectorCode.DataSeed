@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodedVector.DataSeed", "src\CodedVector.DataSeed.csproj", "{738BB487-E769-449D-8A5F-17C9B4422CE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorCode.DataSeed", "src\VectorCode.DataSeed.csproj", "{738BB487-E769-449D-8A5F-17C9B4422CE9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{8DD2CD6E-4E81-426E-A52D-66FE401C82FD}"
 	ProjectSection(SolutionItems) = preProject
@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\publish.yml = .github\workflows\publish.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodedVector.DataSeed.Test", "test\CodedVector.DataSeed.Test.csproj", "{94EB6C96-8E45-442A-8161-7E6A0346BAE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VectorCode.DataSeed.Test", "test\VectorCode.DataSeed.Test.csproj", "{94EB6C96-8E45-442A-8161-7E6A0346BAE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

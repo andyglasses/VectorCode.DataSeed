@@ -1,9 +1,9 @@
-﻿using CodedVector.DataSeed;
-using CodedVector.DataSeed.Test.TestDataSeed;
+﻿using VectorCode.DataSeed;
+using VectorCode.DataSeed.Test.TestDataSeed;
 using FluentAssertions;
 using Moq;
 
-namespace CodedVector.DddCommon.Test;
+namespace VectorCode.DddCommon.Test;
 
 [TestFixture]
 public class DataSeedRunnerTests
@@ -156,7 +156,7 @@ public class DataSeedRunnerTests
     var act = runner.Run;
 
     // Assert
-    await act.Should().ThrowAsync<InvalidOperationException>().WithMessage("Unknown data seed step types (CodedVector.DataSeed.Test.TestDataSeed.NotARealType, CodedVector.DataSeed.Test).");
+    await act.Should().ThrowAsync<InvalidOperationException>().WithMessage("Unknown data seed step types (VectorCode.DataSeed.Test.TestDataSeed.NotARealType, VectorCode.DataSeed.Test).");
   }
 
   [Test]

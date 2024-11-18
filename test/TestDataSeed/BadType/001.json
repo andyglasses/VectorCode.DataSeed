@@ -1,7 +1,7 @@
 {
   "order": 1,
   "name": "step 1",
-  "itemType": "CodedVector.DataSeed.Test.TestDataSeed.NotARealType, CodedVector.DataSeed.Test",
+  "itemType": "VectorCode.DataSeed.Test.TestDataSeed.NotARealType, VectorCode.DataSeed.Test",
   "items": [
     {
       "number": 1,

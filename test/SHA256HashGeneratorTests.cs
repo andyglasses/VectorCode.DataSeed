@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 
-namespace CodedVector.DataSeed.Test;
+namespace VectorCode.DataSeed.Test;
 
 [TestFixture]
 public class SHA256HashGeneratorTests

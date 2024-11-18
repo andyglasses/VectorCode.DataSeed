@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>CodedVector.DataSeed</PackageId>
+    <PackageId>VectorCode.DataSeed</PackageId>
     <Description>Core Data Seeding library</Description>
-    <Authors>Andy Glass, CodedVector</Authors>
-    <Company>CodedVector</Company>
+    <Authors>Andy @ CodedVector</Authors>
+    <Company>VectorCode</Company>
     <Copyright></Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/andyglasses/CodedVector.DataSeed</RepositoryUrl>
+    <RepositoryUrl>https://github.com/andyglasses/VectorCode.DataSeed</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ddd;domain;driven;design;library</PackageTags>
     <Title>Domain Driven Design Common</Title>
@@ -23,7 +23,7 @@
     <!-- Optional: Detect breaking changes from a previous version -->
     <!-- <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion> -->
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <PackageProjectUrl>https://github.com/andyglasses/CodedVector.DataSeed</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/andyglasses/VectorCode.DataSeed</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CodedVector.Response" />
+    <PackageReference Include="VectorCode.Common" />
     <PackageReference Include="DotNet.ReproducibleBuilds">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

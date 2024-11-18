@@ -1,4 +1,4 @@
-﻿namespace CodedVector.DataSeed;
+﻿namespace VectorCode.DataSeed;
 
 /// <summary>
 /// Repository functionality required to support data seeding

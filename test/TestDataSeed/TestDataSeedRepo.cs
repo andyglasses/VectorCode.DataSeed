@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace CodedVector.DataSeed.Test.TestDataSeed;
+namespace VectorCode.DataSeed.Test.TestDataSeed;
 
 public class TestDataSeedRepo : IDataSeedRepository
 {

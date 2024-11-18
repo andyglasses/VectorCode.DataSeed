@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace CodedVector.DataSeed;
+namespace VectorCode.DataSeed;
 
 /// <summary>
 /// Generate a hash for a file using SHA256

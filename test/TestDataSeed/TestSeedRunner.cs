@@ -1,4 +1,4 @@
-﻿namespace CodedVector.DataSeed.Test.TestDataSeed;
+﻿namespace VectorCode.DataSeed.Test.TestDataSeed;
 
 public class TestSeedRunner : BaseDataSeedRunner
 {

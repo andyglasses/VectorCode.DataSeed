@@ -1,4 +1,4 @@
-﻿namespace CodedVector.DataSeed;
+﻿namespace VectorCode.DataSeed;
 
 /// <summary>
 /// Generate a hash for a file

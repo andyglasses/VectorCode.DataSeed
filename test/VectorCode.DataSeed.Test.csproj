@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\CodedVector.DataSeed.csproj" />
+    <ProjectReference Include="..\src\VectorCode.DataSeed.csproj" />
   </ItemGroup>
 
   <ItemGroup>

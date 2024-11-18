@@ -1,4 +1,4 @@
-﻿namespace CodedVector.DataSeed;
+﻿namespace VectorCode.DataSeed;
 
 /// <summary>
 /// A step in the data seed process.

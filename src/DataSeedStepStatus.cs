@@ -1,4 +1,4 @@
-﻿namespace CodedVector.DataSeed;
+﻿namespace VectorCode.DataSeed;
 
 /// <summary>
 /// The status of a data seed step

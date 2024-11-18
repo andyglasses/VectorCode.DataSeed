@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodedVector.DataSeed;
+namespace VectorCode.DataSeed;
 
 /// <summary>
 /// Model for holding basic data about a data sed step

@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 
-namespace CodedVector.DataSeed;
+namespace VectorCode.DataSeed;
 
 /// <summary>
 /// Base class for all Data Seed Running
