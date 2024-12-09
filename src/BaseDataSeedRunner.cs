@@ -1,7 +1,5 @@
-﻿using System.Globalization;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace VectorCode.DataSeed;
 
@@ -48,7 +46,8 @@ public abstract class BaseDataSeedRunner
     var steps = new List<(DataSeedStep Step, Type? Type, string ValidationHash)>();
     var options = new JsonSerializerOptions
     {
-      PropertyNameCaseInsensitive = true
+      PropertyNameCaseInsensitive = true,
+      Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
     };
     files.ToList().ForEach(f => ProcessFile(steps, options, f));
     var repoSteps = await _dataSeedRepository.GetDataSeedSteps();

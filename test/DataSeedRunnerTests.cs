@@ -203,4 +203,22 @@ public class DataSeedRunnerTests
     // Assert
     await act.Should().ThrowAsync<InvalidOperationException>().WithMessage("Unmapped data seed step types (System.String), make sure they are mapped in GetStep.");
   }
+
+  [Test]
+  public async Task Run_WithEnumInItems_ShouldRun()
+  {
+    // Arrange
+    var repo = new TestDataSeedRepo();
+    var runner = new TestSeedRunner(repo, new SHA256HashGenerator());
+    runner.SetFolder("TestDataSeed/EnumType");
+
+    // Act
+    await runner.Run();
+
+    // Assert
+    runner.EnumPropModels.Should().HaveCount(2);
+    runner.EnumPropModels[0].Number.Should().Be(ExampleEnum.Value1);
+    runner.EnumPropModels[1].Number.Should().Be(ExampleEnum.Value2);
+  }
+
 }

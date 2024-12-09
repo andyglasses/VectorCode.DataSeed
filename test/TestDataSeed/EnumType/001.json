@@ -1,0 +1,13 @@
+{
+  "order": 1,
+  "name": "step 1",
+  "itemType": "VectorCode.DataSeed.Test.TestDataSeed.EnumPropModel, VectorCode.DataSeed.Test",
+  "items": [
+    {
+      "number": "Value1"
+    },
+    {
+      "number": "Value2"
+    }
+  ]
+}

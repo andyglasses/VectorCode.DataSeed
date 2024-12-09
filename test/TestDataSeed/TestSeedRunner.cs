@@ -24,12 +24,14 @@ public class TestSeedRunner : BaseDataSeedRunner
     {
       return (dynamic i) => DoStepTwo((i as StepTwoModel)!);
     }
+    if(itemType == typeof(EnumPropModel))
+    {
+      return (dynamic i) => DoEnum((i as EnumPropModel)!);
+    }
     return null;
   }
 
-#pragma warning disable CA1051 // Do not declare visible instance fields
   public List<StepOneModel> StepOneModels = new List<StepOneModel>();
-#pragma warning restore CA1051 // Do not declare visible instance fields
   public Task DoStepOne(StepOneModel model)
   {
     if (model.Number < 0) throw new InvalidOperationException("Number must be greater than 0");
@@ -37,12 +39,17 @@ public class TestSeedRunner : BaseDataSeedRunner
     return Task.CompletedTask;
   }
 
-#pragma warning disable CA1051 // Do not declare visible instance fields
   public List<StepTwoModel> StepTwoModels = new List<StepTwoModel>();
-#pragma warning restore CA1051 // Do not declare visible instance fields
   public Task DoStepTwo(StepTwoModel model)
   {
     StepTwoModels.Add(model);
+    return Task.CompletedTask;
+  }
+
+  public List<EnumPropModel> EnumPropModels = new List<EnumPropModel>();
+  public Task DoEnum(EnumPropModel model)
+  {
+    EnumPropModels.Add(model);
     return Task.CompletedTask;
   }
 
