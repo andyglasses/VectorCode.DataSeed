@@ -42,6 +42,12 @@
     <None Update="TestDataSeed\EnumType\001.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestDataSeed\SecondIsInvalidType\001.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestDataSeed\SecondIsInvalidType\002.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestDataSeed\UnmappedType\001.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

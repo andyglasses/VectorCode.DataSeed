@@ -1,0 +1,15 @@
+{
+  "order": 2,
+  "name": "step 2",
+  "itemType": "VectorCode.DataSeed.Test.TestDataSeed.NotAType, VectorCode.DataSeed.Test",
+  "items": [
+    {
+      "price": 1.11,
+      "date": "2024-01-01"
+    },
+    {
+      "price": 2.22,
+      "date": "2024-02-02"
+    }
+  ]
+}
