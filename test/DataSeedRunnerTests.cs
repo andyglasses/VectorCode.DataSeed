@@ -1,7 +1,4 @@
-﻿// Ignore Spelling: Json
-
-using VectorCode.DataSeed.Test.TestDataSeed;
-using FluentAssertions;
+﻿using VectorCode.DataSeed.Test.TestDataSeed;
 using Moq;
 using VectorCode.Common;
 
@@ -22,21 +19,21 @@ public class DataSeedRunnerTests
     await runner.Run();
 
     // Assert
-    runner.StepOneModels.Should().HaveCount(2);
-    runner.StepOneModels[0].Number.Should().Be(1);
-    runner.StepOneModels[0].Text.Should().Be("one");
-    runner.StepOneModels[1].Number.Should().Be(2);
-    runner.StepOneModels[1].Text.Should().Be("two");
-    runner.StepTwoModels.Should().HaveCount(2);
-    runner.StepTwoModels[0].Price.Should().Be(1.11m);
-    runner.StepTwoModels[0].Date.Should().Be(new DateTime(2024,1,1));
-    runner.StepTwoModels[1].Price.Should().Be(2.22m);
-    runner.StepTwoModels[1].Date.Should().Be(new DateTime(2024, 2, 2));
-    repo.Steps.Should().HaveCount(2);
-    repo.Steps[1].Name.Should().Be("step 1");
-    repo.Steps[1].Status.Should().Be(DataSeedStepStatus.Complete);
-    repo.Steps[2].Name.Should().Be("step 2");
-    repo.Steps[2].Status.Should().Be(DataSeedStepStatus.Complete);
+    Assert.That(runner.StepOneModels, Has.Exactly(2).Items);
+    Assert.That(runner.StepOneModels[0].Number, Is.EqualTo(1));
+    Assert.That(runner.StepOneModels[0].Text, Is.EqualTo("one"));
+    Assert.That(runner.StepOneModels[1].Number, Is.EqualTo(2));
+    Assert.That(runner.StepOneModels[1].Text, Is.EqualTo("two"));
+    Assert.That(runner.StepTwoModels, Has.Exactly(2).Items);
+    Assert.That(runner.StepTwoModels[0].Price, Is.EqualTo(1.11m));
+    Assert.That(runner.StepTwoModels[0].Date, Is.EqualTo(new DateTime(2024, 1, 1)));
+    Assert.That(runner.StepTwoModels[1].Price, Is.EqualTo(2.22m));
+    Assert.That(runner.StepTwoModels[1].Date, Is.EqualTo(new DateTime(2024, 2, 2)));
+    Assert.That(repo.Steps, Has.Exactly(2).Items);
+    Assert.That(repo.Steps[1].Name, Is.EqualTo("step 1"));
+    Assert.That(repo.Steps[1].Status, Is.EqualTo(DataSeedStepStatus.Complete));
+    Assert.That(repo.Steps[2].Name, Is.EqualTo("step 2"));
+    Assert.That(repo.Steps[2].Status, Is.EqualTo(DataSeedStepStatus.Complete));
   }
 
   [Test]
@@ -54,17 +51,17 @@ public class DataSeedRunnerTests
     await runner.Run();
 
     // Assert
-    runner.StepOneModels.Should().HaveCount(0);
-    runner.StepTwoModels.Should().HaveCount(2);
-    runner.StepTwoModels[0].Price.Should().Be(1.11m);
-    runner.StepTwoModels[0].Date.Should().Be(new DateTime(2024, 1, 1));
-    runner.StepTwoModels[1].Price.Should().Be(2.22m);
-    runner.StepTwoModels[1].Date.Should().Be(new DateTime(2024, 2, 2));
-    repo.Steps.Should().HaveCount(2);
-    repo.Steps[1].Name.Should().Be("step 1");
-    repo.Steps[1].Status.Should().Be(DataSeedStepStatus.Complete);
-    repo.Steps[2].Name.Should().Be("step 2");
-    repo.Steps[2].Status.Should().Be(DataSeedStepStatus.Complete);
+    Assert.That(runner.StepOneModels, Has.Exactly(0).Items);
+    Assert.That(runner.StepTwoModels, Has.Exactly(2).Items);
+    Assert.That(runner.StepTwoModels[0].Price, Is.EqualTo(1.11m));
+    Assert.That(runner.StepTwoModels[0].Date, Is.EqualTo(new DateTime(2024, 1, 1)));
+    Assert.That(runner.StepTwoModels[1].Price, Is.EqualTo(2.22m));
+    Assert.That(runner.StepTwoModels[1].Date, Is.EqualTo(new DateTime(2024, 2, 2)));
+    Assert.That(repo.Steps, Has.Exactly(2).Items);
+    Assert.That(repo.Steps[1].Name, Is.EqualTo("step 1"));
+    Assert.That(repo.Steps[1].Status, Is.EqualTo(DataSeedStepStatus.Complete));
+    Assert.That(repo.Steps[2].Name, Is.EqualTo("step 2"));
+    Assert.That(repo.Steps[2].Status, Is.EqualTo(DataSeedStepStatus.Complete));
   }
 
   [Test]
@@ -82,8 +79,8 @@ public class DataSeedRunnerTests
     var result = await runner.Run();
 
     // Assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code == "OutOfOrder" && e.Key == nameof(DataSeedStepDto.Order));
+    Assert.That(result.Success, Is.False);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code == "OutOfOrder" && e.Key == nameof(DataSeedStepDto.Order)));
   }
 
   [Test]
@@ -99,8 +96,8 @@ public class DataSeedRunnerTests
     var result = await runner.Run();
 
     // Assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith("Mismatch") && e.Key == nameof(DataSeedStepDto.ValidationHash));
+    Assert.That(result.Success, Is.False);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith("Mismatch", StringComparison.Ordinal) && e.Key == nameof(DataSeedStepDto.ValidationHash)));
   }
 
   [Test]
@@ -115,8 +112,8 @@ public class DataSeedRunnerTests
     var result = await runner.Run();
 
     // Assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith("FailedToParse:") && e.Key.EndsWith("001.json"));
+    Assert.That(result.Success, Is.False);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith("FailedToParse:", StringComparison.Ordinal) && e.Key.EndsWith("001.json", StringComparison.Ordinal)));
   }
 
   [Test]
@@ -131,8 +128,8 @@ public class DataSeedRunnerTests
     var result = await runner.Run();
 
     // Assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith("FailedToParse:") && e.Key.EndsWith("001.json"));
+    Assert.That(result.Success, Is.False);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith("FailedToParse:", StringComparison.Ordinal) && e.Key.EndsWith("001.json", StringComparison.Ordinal)));
   }
 
   [Test]
@@ -147,8 +144,8 @@ public class DataSeedRunnerTests
     var result = await runner.Run();
 
     // Assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code == "EmptyFile" && e.Key.EndsWith("001.json"));
+    Assert.That(result.Success, Is.False);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code == "EmptyFile" && e.Key.EndsWith("001.json", StringComparison.Ordinal)));
   }
 
   [Test]
@@ -163,8 +160,8 @@ public class DataSeedRunnerTests
     var result = await runner.Run();
 
     // Assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith(CommonCodes.NotFound) && e.Key == nameof(DataSeedStep.ItemType));
+    Assert.That(result.Success, Is.False);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith(CommonCodes.NotFound, StringComparison.Ordinal) && e.Key == nameof(DataSeedStep.ItemType)));
   }
 
   [Test]
@@ -179,8 +176,8 @@ public class DataSeedRunnerTests
     var result = await runner.Run();
 
     // Assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith(CommonCodes.Duplicate) && e.Key == nameof(DataSeedStep.Order));
+    Assert.That(result.Success, Is.False);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith(CommonCodes.Duplicate, StringComparison.Ordinal) && e.Key == nameof(DataSeedStep.Order)));
   }
 
   [Test]
@@ -195,8 +192,8 @@ public class DataSeedRunnerTests
     var result = await runner.Run();
 
     // Assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith(CommonCodes.Invalid) && e.Key == nameof(DataSeedStep.Order));
+    Assert.That(result.Success, Is.False);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith(CommonCodes.Invalid, StringComparison.Ordinal) && e.Key == nameof(DataSeedStep.Order)));
   }
 
   [Test]
@@ -211,8 +208,8 @@ public class DataSeedRunnerTests
     var result = await runner.Run();
 
     // Assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith("Unmapped") && e.Key == nameof(DataSeedStep.ItemType));
+    Assert.That(result.Success, Is.False);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith("Unmapped", StringComparison.Ordinal) && e.Key == nameof(DataSeedStep.ItemType)));
   }
 
   [Test]
@@ -227,9 +224,9 @@ public class DataSeedRunnerTests
     await runner.Run();
 
     // Assert
-    runner.EnumPropModels.Should().HaveCount(2);
-    runner.EnumPropModels[0].Number.Should().Be(ExampleEnum.Value1);
-    runner.EnumPropModels[1].Number.Should().Be(ExampleEnum.Value2);
+    Assert.That(runner.EnumPropModels, Has.Exactly(2).Items);
+    Assert.That(runner.EnumPropModels[0].Number, Is.EqualTo(ExampleEnum.Value1));
+    Assert.That(runner.EnumPropModels[1].Number, Is.EqualTo(ExampleEnum.Value2));
   }
 
   [Test]
@@ -244,12 +241,12 @@ public class DataSeedRunnerTests
     var summaries = await runner.GetStepSummaries();
 
     // assert
-    summaries.Success.Should().BeTrue();
-    summaries.Data.Should().HaveCount(2);
-    summaries.Data![0].Order.Should().Be(1);
-    summaries.Data![0].Status.Should().Be(DataSeedStepStatus.Pending);
-    summaries.Data![1].Order.Should().Be(2);
-    summaries.Data![1].Status.Should().Be(DataSeedStepStatus.Pending);
+    Assert.That(summaries.Success, Is.True);
+    Assert.That(summaries.Data, Has.Exactly(2).Items);
+    Assert.That(summaries.Data[0].Order, Is.EqualTo(1));
+    Assert.That(summaries.Data[0].Status, Is.EqualTo(DataSeedStepStatus.Pending));
+    Assert.That(summaries.Data[1].Order, Is.EqualTo(2));
+    Assert.That(summaries.Data[1].Status, Is.EqualTo(DataSeedStepStatus.Pending));
   }
 
   [Test]
@@ -267,12 +264,12 @@ public class DataSeedRunnerTests
     var summaries = await runner.GetStepSummaries();
 
     // assert
-    summaries.Success.Should().BeTrue();
-    summaries.Data.Should().HaveCount(2);
-    summaries.Data![0].Order.Should().Be(1);
-    summaries.Data![0].Status.Should().Be(DataSeedStepStatus.Complete);
-    summaries.Data![1].Order.Should().Be(2);
-    summaries.Data![1].Status.Should().Be(DataSeedStepStatus.Pending);
+    Assert.That(summaries.Success, Is.True);
+    Assert.That(summaries.Data, Has.Exactly(2).Items);
+    Assert.That(summaries.Data[0].Order, Is.EqualTo(1));
+    Assert.That(summaries.Data[0].Status, Is.EqualTo(DataSeedStepStatus.Complete));
+    Assert.That(summaries.Data[1].Order, Is.EqualTo(2));
+    Assert.That(summaries.Data[1].Status, Is.EqualTo(DataSeedStepStatus.Pending));
 
   }
 
@@ -291,12 +288,12 @@ public class DataSeedRunnerTests
     var summaries = await runner.GetStepSummaries();
 
     // assert
-    summaries.Success.Should().BeTrue();
-    summaries.Data.Should().HaveCount(2);
-    summaries.Data![0].Order.Should().Be(1);
-    summaries.Data![0].Status.Should().Be(DataSeedStepStatus.ValidationHashMismatch);
-    summaries.Data![1].Order.Should().Be(2);
-    summaries.Data![1].Status.Should().Be(DataSeedStepStatus.Pending);
+    Assert.That(summaries.Success, Is.True);
+    Assert.That(summaries.Data, Has.Exactly(2).Items);
+    Assert.That(summaries.Data[0].Order, Is.EqualTo(1));
+    Assert.That(summaries.Data[0].Status, Is.EqualTo(DataSeedStepStatus.ValidationHashMismatch));
+    Assert.That(summaries.Data[1].Order, Is.EqualTo(2));
+    Assert.That(summaries.Data[1].Status, Is.EqualTo(DataSeedStepStatus.Pending));
 
   }
 
@@ -315,14 +312,14 @@ public class DataSeedRunnerTests
     var summaries = await runner.GetStepSummaries();
 
     // assert
-    summaries.Success.Should().BeTrue();
-    summaries.Data.Should().HaveCount(3);
-    summaries.Data![0].Order.Should().Be(0);
-    summaries.Data![0].Status.Should().Be(DataSeedStepStatus.MissingInFile);
-    summaries.Data![1].Order.Should().Be(1);
-    summaries.Data![1].Status.Should().Be(DataSeedStepStatus.Pending);
-    summaries.Data![2].Order.Should().Be(2);
-    summaries.Data![2].Status.Should().Be(DataSeedStepStatus.Pending);
+    Assert.That(summaries.Success, Is.True);
+    Assert.That(summaries.Data, Has.Exactly(3).Items);
+    Assert.That(summaries.Data[0].Order, Is.EqualTo(0));
+    Assert.That(summaries.Data[0].Status, Is.EqualTo(DataSeedStepStatus.MissingInFile));
+    Assert.That(summaries.Data[1].Order, Is.EqualTo(1));
+    Assert.That(summaries.Data[1].Status, Is.EqualTo(DataSeedStepStatus.Pending));
+    Assert.That(summaries.Data[2].Order, Is.EqualTo(2));
+    Assert.That(summaries.Data[2].Status, Is.EqualTo(DataSeedStepStatus.Pending));
 
   }
 
@@ -341,10 +338,10 @@ public class DataSeedRunnerTests
     var summaries = await runner.GetStepSummaries();
 
     // assert
-    summaries.Success.Should().BeTrue();
-    summaries.Data.Should().HaveCount(2);
-    summaries.Data![0].ValidationHash.Should().Be(string.Empty);
-    summaries.Data![1].ValidationHash.Should().Be(string.Empty);
+    Assert.That(summaries.Success, Is.True);
+    Assert.That(summaries.Data, Has.Exactly(2).Items);
+    Assert.That(summaries.Data[0].ValidationHash, Is.EqualTo(string.Empty));
+    Assert.That(summaries.Data[1].ValidationHash, Is.EqualTo(string.Empty));
 
   }
 
@@ -360,8 +357,8 @@ public class DataSeedRunnerTests
     var result = await runner.ValidateSteps(new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeTrue();
-    repo.Steps.Should().HaveCount(0);
+    Assert.That(result.Success, Is.True);
+    Assert.That(repo.Steps, Has.Exactly(0).Items);
   }
 
   [Test]
@@ -376,9 +373,9 @@ public class DataSeedRunnerTests
     var result = await runner.ValidateSteps(new IgnoreDto(true, true));
 
     // assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith(CommonCodes.NotFound) && e.Key == nameof(DataSeedStep.ItemType));
-    repo.Steps.Should().HaveCount(0);
+    Assert.That(result.Success, Is.False);
+    Assert.That(repo.Steps, Has.Exactly(0).Items);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith(CommonCodes.NotFound, StringComparison.Ordinal) && e.Key == nameof(DataSeedStep.ItemType)));
   }
 
   [Test]
@@ -393,8 +390,8 @@ public class DataSeedRunnerTests
     var result = await runner.ValidateStep(1, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeTrue();
-    repo.Steps.Should().HaveCount(0);
+    Assert.That(result.Success, Is.True);
+    Assert.That(repo.Steps, Has.Exactly(0).Items);
   }
 
   [Test]
@@ -409,8 +406,8 @@ public class DataSeedRunnerTests
     var result = await runner.ValidateStep(1, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeTrue();
-    repo.Steps.Should().HaveCount(0);
+    Assert.That(result.Success, Is.True);
+    Assert.That(repo.Steps, Has.Exactly(0).Items);
   }
 
   [Test]
@@ -425,8 +422,8 @@ public class DataSeedRunnerTests
     var result = await runner.ValidateStep(2, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeFalse();
-    repo.Steps.Should().HaveCount(0);
+    Assert.That(result.Success, Is.False);
+    Assert.That(repo.Steps, Has.Exactly(0).Items);
   }
 
 
@@ -443,9 +440,9 @@ public class DataSeedRunnerTests
     var result = await runner.ValidateStep(5, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith(CommonCodes.NotFound) && e.Key == nameof(DataSeedStep.Order));
-    repo.Steps.Should().HaveCount(0);
+    Assert.That(result.Success, Is.False);
+    Assert.That(repo.Steps, Has.Exactly(0).Items);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith(CommonCodes.NotFound, StringComparison.Ordinal) && e.Key == nameof(DataSeedStep.Order)));
   }
 
   [Test]
@@ -463,7 +460,7 @@ public class DataSeedRunnerTests
     var result = await runner.ValidateStep(1, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeFalse();
+    Assert.That(result.Success, Is.False);
   }
 
   [Test]
@@ -481,7 +478,7 @@ public class DataSeedRunnerTests
     var result = await runner.ValidateStep(1, new IgnoreDto(true, false));
 
     // assert
-    result.Success.Should().BeTrue();
+    Assert.That(result.Success, Is.True);
   }
 
 
@@ -501,7 +498,7 @@ public class DataSeedRunnerTests
     var result = await runner.ValidateStep(1, new IgnoreDto(true, false));
 
     // assert
-    result.Success.Should().BeTrue();
+    Assert.That(result.Success, Is.True);
   }
 
 
@@ -517,9 +514,9 @@ public class DataSeedRunnerTests
     var result = await runner.ValidateStep(1, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().HaveCountGreaterThan(0);
-    repo.Steps.Should().HaveCount(0);
+    Assert.That(result.Success, Is.False);
+    Assert.That(repo.Steps, Has.Exactly(0).Items);
+    Assert.That(result.Errors, Is.Not.Empty);
   }
 
   [Test]
@@ -534,8 +531,8 @@ public class DataSeedRunnerTests
     var result = await runner.RunStep(1, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeTrue();
-    repo.Steps.Should().HaveCount(1);
+    Assert.That(result.Success, Is.True);
+    Assert.That(repo.Steps, Has.Exactly(1).Items);
   }
 
   [Test]
@@ -550,9 +547,9 @@ public class DataSeedRunnerTests
     var result = await runner.RunStep(5, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith(CommonCodes.NotFound) && e.Key == nameof(DataSeedStep.Order));
-    repo.Steps.Should().HaveCount(0);
+    Assert.That(result.Success, Is.False);
+    Assert.That(repo.Steps, Has.Exactly(0).Items);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith(CommonCodes.NotFound, StringComparison.Ordinal) && e.Key == nameof(DataSeedStep.Order)));
   }
 
 
@@ -568,9 +565,9 @@ public class DataSeedRunnerTests
     var result = await runner.RunStep(1, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().HaveCountGreaterThan(0);
-    repo.Steps.Should().HaveCount(0);
+    Assert.That(result.Success, Is.False);
+    Assert.That(repo.Steps, Has.Exactly(0).Items);
+    Assert.That(result.Errors, Is.Not.Empty);
   }
 
 
@@ -590,9 +587,9 @@ public class DataSeedRunnerTests
     var result = await runner.RunStep(1, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeFalse();
-    result.Errors.Should().Contain(e => e.Code.StartsWith("AlreadyRun") && e.Key == nameof(DataSeedStep.Order));
-    repo.Steps.Should().HaveCount(1);
+    Assert.That(result.Success, Is.False);
+    Assert.That(repo.Steps, Has.Exactly(1).Items);
+    Assert.That(result.Errors, Has.One.Matches<KeyCode>(e => e.Code.StartsWith("AlreadyRun", StringComparison.Ordinal) && e.Key == nameof(DataSeedStep.Order)));
   }
 
 
@@ -608,8 +605,8 @@ public class DataSeedRunnerTests
     var result = await runner.RunStep(1, new IgnoreDto(false, false));
 
     // assert
-    result.Success.Should().BeFalse();
-    repo.Steps.Should().HaveCount(0);
+    Assert.That(result.Success, Is.False);
+    Assert.That(repo.Steps, Has.Exactly(0).Items);
   }
 
 

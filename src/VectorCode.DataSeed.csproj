@@ -9,7 +9,7 @@
   <PropertyGroup>
     <PackageId>VectorCode.DataSeed</PackageId>
     <Description>Core Data Seeding library</Description>
-    <Authors>Andy @ CodedVector</Authors>
+    <Authors>Andy @ VectorCode</Authors>
     <Company>VectorCode</Company>
     <Copyright></Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>

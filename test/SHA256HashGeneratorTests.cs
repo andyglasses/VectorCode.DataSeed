@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-
-namespace VectorCode.DataSeed.Test;
+﻿namespace VectorCode.DataSeed.Test;
 
 [TestFixture]
 public class SHA256HashGeneratorTests
@@ -17,7 +15,7 @@ public class SHA256HashGeneratorTests
     var result2 = generator.GenerateHash(fileContent);
 
     // Assert
-    result1.Should().Be(result2);
+    Assert.That(result1, Is.EqualTo(result2));
   }
 
 
@@ -33,6 +31,6 @@ public class SHA256HashGeneratorTests
     var resultNoWhiteSpace = generator.GenerateHash(noWhitespace);
 
     // Assert
-    result.Should().Be(resultNoWhiteSpace);
+    Assert.That(result, Is.EqualTo(resultNoWhiteSpace));
   }
 }

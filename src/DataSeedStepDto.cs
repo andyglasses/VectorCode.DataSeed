@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VectorCode.DataSeed;
+﻿namespace VectorCode.DataSeed;
 
 /// <summary>
-/// Model for holding basic data about a data sed step
+/// Model for holding basic data about a data seed step
 /// </summary>
-/// <param name="Order">Execusion order of the step</param>
+/// <param name="Order">Execution order of the step</param>
 /// <param name="Name">Name of the step</param>
 /// <param name="Status">The status of the step</param>
 /// <param name="ValidationHash">Hash of the data to validate the step</param>
